@@ -17,19 +17,48 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
+#define MOUSEKEY_DELAY 5
+#define MOUSEKEY_INTERVAL 10
+#define MOUSEKEY_MOVE_DELTA 16
+#define MOUSEKEY_INITIAL_SPEED 100
+#define MOUSEKEY_BASE_SPEED 5000
+#define MOUSEKEY_DECELERATED_SPEED 400
+#define MOUSEKEY_ACCELERATED_SPEED 3000
+#define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 16
+#define MOUSEKEY_WHEEL_BASE_MOVEMENTS 32
+#define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48
+#define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
+
 enum preonic_layers {
   _COLEMAK,
   _LOWER,
   _RAISE,
-  _ADJUST
+  _ADJUST,
+  _MOUSE
 };
 
 enum preonic_keycodes {
   COLEMAK  = SAFE_RANGE,
   LOWER,
   RAISE,
+  MOUSE,
   BACKLIT
 };
+
+enum combos {
+  MOUSE_LAYER,
+  COMBO_LENGTH,
+};
+
+#define COMBO_COUNT 1
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM mouse_combo[] = {LT(_RAISE,KC_SPC), KC_LGUI, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [MOUSE_LAYER] = COMBO(mouse_combo, TG(_MOUSE)),
+};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -117,8 +146,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, COLEMAK, _______, _______, _______,
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
   BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-)
+),
 
+
+
+/* Mouse
+ * ,-------------------------------------------------------------------------------------------------.
+ * |      |      |      |      |      |           |           |      |      |      |      |          |
+ * |------+------+------+------+------+-----------+-----------+------+------+------+------+----------|
+ * |      |      |      |      |      |           |           |Spd 0 |Spd 1 |Spd 2 |      |          |
+ * |------+------+------+------+------+-----------+-----------+------+------+------+------+----------|
+ * |      |      |      |      |      |           |           | Left | Down |  Up  | Right|          | 
+ * |------+------+------+------+------+-----------|-----------+------+------+------+------+----------|
+ * |      |      |      |      |L Btn | R Btn     |           |Scr L |Scr D |Scr U |Scr R |          | 
+ * |------+------+------+------+------+-----------+-----------+------+------+------+------+----------|
+ * |      |      |      |      |M Btn |           |           |      |      |      |      |          | 
+ * `-------------------------------------------------------------------------------------------------'
+ */
+[_MOUSE] = LAYOUT_preonic_grid(
+  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+  _______,    _______,  _______,  _______,  _______,  _______,  _______,  KC_ACL0,  KC_ACL1,  KC_ACL2,  _______,  _______,
+  _______,    _______,  _______,  _______,  KC_BTN1,  KC_BTN2,  _______,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  _______,
+  _______,    _______,  _______,  _______,  KC_BTN3,  _______,  _______,  KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  _______,
+  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
+)
 
 };
 

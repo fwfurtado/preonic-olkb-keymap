@@ -51,12 +51,11 @@ enum combos {
   COMBO_LENGTH,
 };
 
-#define COMBO_COUNT 1
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM mouse_combo[] = {LT(_RAISE,KC_SPC), KC_LGUI, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [MOUSE_LAYER] = COMBO(mouse_combo, TG(_MOUSE)),
 };
 
@@ -159,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-----------+-----------+------+------+------+------+----------|
  * |      |      |      |      |      |           |           | Left | Down |  Up  | Right|          | 
  * |------+------+------+------+------+-----------|-----------+------+------+------+------+----------|
- * |      |      |      |      |L Btn | R Btn     |           |Scr L |Scr D |Scr U |Scr R |          | 
+ * |      |      |      |      |L Btn | R Btn     |           |Scr L |Scr U |Scr D |Scr R |          |  // Inverted scroll for natural scrolling
  * |------+------+------+------+------+-----------+-----------+------+------+------+------+----------|
  * |      |      |      |      |M Btn |           |           |      |      |      |      |          | 
  * `-------------------------------------------------------------------------------------------------'
@@ -168,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
   _______,    _______,  _______,  _______,  _______,  _______,  _______,  KC_ACL0,  KC_ACL1,  KC_ACL2,  _______,  _______,
   _______,    _______,  _______,  _______,  KC_BTN1,  KC_BTN2,  _______,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  _______,
-  _______,    _______,  _______,  _______,  KC_BTN3,  _______,  _______,  KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  _______,
+  _______,    _______,  _______,  _______,  KC_BTN3,  _______,  _______,  KC_WH_L,  KC_WH_U,  KC_WH_D,  KC_WH_R,  _______,
   _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
 )
 

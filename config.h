@@ -16,33 +16,45 @@
 
 #pragma once
 
-#ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(PREONIC_SOUND)
-// #define STARTUP_SONG SONG(NO_SOUND)
+#include "custom_config.h"
 
-#    define DEFAULT_LAYER_SONGS \
-        { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND) }
-#endif
 
-#define MUSIC_MASK (keycode != KC_NO)
+// default but used in macros
+#undef TAPPING_TERM
+#define TAPPING_TERM 200
 
-/*
- * MIDI options
- */
+// Prevent normal rollover on alphas from accidentally triggering mods.
+#define IGNORE_MOD_TAP_INTERRUPT
 
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
+// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
+#define QUICK_TAP_TERM 0
 
-#define MIDI_BASIC
+// Auto Shift
+#define NO_AUTO_SHIFT_ALPHA
+#define AUTO_SHIFT_TIMEOUT TAPPING_TERM
+#define AUTO_SHIFT_NO_SETUP
 
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
+// Mouse key speed and acceleration.
+#undef MOUSEKEY_DELAY
+#define MOUSEKEY_DELAY          0
+#undef MOUSEKEY_INTERVAL
+#define MOUSEKEY_INTERVAL       16
+#undef MOUSEKEY_WHEEL_DELAY
+#define MOUSEKEY_WHEEL_DELAY    0
+#undef MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_MAX_SPEED      6
+#undef MOUSEKEY_TIME_TO_MAX
+#define MOUSEKEY_TIME_TO_MAX    64
 
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 2
+// #define MK_KINETIC_SPEED
+// #define MOUSEKEY_DELAY 5
+// #define MOUSEKEY_INTERVAL 10
+// #define MOUSEKEY_MOVE_DELTA 16
+// #define MOUSEKEY_INITIAL_SPEED 100
+// #define MOUSEKEY_BASE_SPEED 5000
+// #define MOUSEKEY_DECELERATED_SPEED 400
+// #define MOUSEKEY_ACCELERATED_SPEED 3000
+// #define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 16
+// #define MOUSEKEY_WHEEL_BASE_MOVEMENTS 32
+// #define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48
+// #define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8

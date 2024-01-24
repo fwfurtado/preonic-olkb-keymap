@@ -10,7 +10,14 @@ vars:
     sh: 'pwd'
 
 tasks:
+  install:
+    desc: build and flash miryoku keymap to preonic
+    deps:
+      - build
+      - flash
+
   add/keymap:
+    internal: true
     preconditions:
       - test -d '{{.QMK_HOME}}'
     cmds:
@@ -19,12 +26,16 @@ tasks:
       - test -L '{{.keymap_dir}}'
 
   build:
+    desc: Build miryoku keymap to preonic
+    deps:
+      - add/keymap
     cmds:
       - qmk compile -c -kb preonic/rev3_drop -km fwfurtado
     generates:
       - '{{.QMK_HOME}}/.build/preonic_rev3_drop_fwfurtado.hex'
 
   flash:
+    desc: Flash miryoku keymap to preonic
     preconditions:
       - test -f '{{.QMK_HOME}}/.build/preonic_rev3_drop_fwfurtado.hex'
     cmds:

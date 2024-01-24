@@ -1,0 +1,31 @@
+version: 3
+
+env:
+  QMK_HOME: '{{env "QMK_HOME" | default | joinPath (env "HOME") "qmk_firmware"}}'
+
+
+vars:
+  keymap_dir: '{{.QMK_HOME}}/keyboards/preonic/keymaps/fwfurtado'
+  project_dir:
+    sh: 'pwd'
+
+tasks:
+  add/keymap:
+    preconditions:
+      - test -d '{{.QMK_HOME}}'
+    cmds:
+      - ln -sf '{{.project_dir}}' '{{.keymap_dir}}'
+    status:
+      - test -L '{{.keymap_dir}}'
+
+  build:
+    cmds:
+      - qmk compile -c -kb preonic/rev3_drop -km fwfurtado
+    generates:
+      - '{{.QMK_HOME}}/.build/preonic_rev3_drop_fwfurtado.hex'
+
+  flash:
+    preconditions:
+      - test -f '{{.QMK_HOME}}/.build/preonic_rev3_drop_fwfurtado.hex'
+    cmds:
+      - qmk flash -c -kb preonic/rev3_drop -km fwfurtado

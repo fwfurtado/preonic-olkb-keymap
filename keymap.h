@@ -7,8 +7,10 @@
 #define U_NU KC_NO // available but not used
 
 // Copy and paste
-#define U_RDO C(KC_Y)
-#define U_PST C(KC_V)
-#define U_CPY C(KC_C)
-#define U_CUT C(KC_X)
-#define U_UND C(KC_Z)
+// G = GUI/CMD
+// C = CTRL
+#define U_RDO G(KC_Y) 
+#define U_PST G(KC_V)
+#define U_CPY G(KC_C)
+#define U_CUT G(KC_X)
+#define U_UND G(KC_Z)

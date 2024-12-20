@@ -20,11 +20,11 @@ jobs:
     - name: Checkout userspace
       uses: actions/checkout@v3
       with:
-        path: users/${{ github.actor }}
+        path: keyboards/preonic/keymaps/fwfurtado
     
     - name: Add keymap
       run: |      
-       ln -sf "users/${{ github.actor }}" keyboards/preonic/keymaps/fwfurtado
+       ls -l      
        ls -l keyboards/preonic/keymaps/fwfurtado
 
     - name: Build firmware
